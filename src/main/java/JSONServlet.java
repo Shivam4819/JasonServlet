@@ -1,4 +1,5 @@
 import org.json.simple.JSONObject;
+import org.json.simple.JSONValue;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -18,9 +19,20 @@ public class JSONServlet extends HttpServlet {
             BufferedReader reader = request.getReader();
             while ((line = reader.readLine()) != null)
                 buffer.append(line);
-            System.out.println("yooo");
+            System.out.println("yoo");
             System.out.println(buffer.toString());
-        } catch (Exception e) { /*report an error*/ }
+            // jason string
+            Object obj= JSONValue.parse(buffer.toString());
+            JSONObject jsonObject = (JSONObject)obj;
+            String name=(String)jsonObject.get("name");
+            long id= (Long) jsonObject.get("id");
+            String email= (String)jsonObject.get("email");
+            System.out.println("name-"+name);
+            System.out.println("id"+id);
+            System.out.println("email-"+email);
+        } catch (Exception e) {
+            System.out.println("error="+e);
+        }
 
     }
 
