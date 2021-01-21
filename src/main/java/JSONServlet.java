@@ -13,23 +13,27 @@ import java.io.PrintWriter;
 @WebServlet(name = "JSONServlet",urlPatterns = {"/display"})
 public class JSONServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-       StringBuffer buffer=new StringBuffer();
+        System.out.println("connection made");
+        StringBuffer buffer=new StringBuffer();
        String line=null;
         try {
             BufferedReader reader = request.getReader();
             while ((line = reader.readLine()) != null)
                 buffer.append(line);
-            System.out.println("yoo");
-            System.out.println(buffer.toString());
+
+           // System.out.println(buffer.toString());
             // jason string
             Object obj= JSONValue.parse(buffer.toString());
             JSONObject jsonObject = (JSONObject)obj;
-            String name=(String)jsonObject.get("name");
-            long id= (Long) jsonObject.get("id");
+            long id=(Long) jsonObject.get("id");
             String email= (String)jsonObject.get("email");
-            System.out.println("name-"+name);
+            String course= (String)jsonObject.get("coursename");
+            String instructor= (String)jsonObject.get("instructorname");
+
             System.out.println("id"+id);
             System.out.println("email-"+email);
+            System.out.println("couse-"+course);
+            System.out.println("instructor-"+instructor);
         } catch (Exception e) {
             System.out.println("error="+e);
         }
@@ -42,6 +46,7 @@ public class JSONServlet extends HttpServlet {
         //object.put("age",new Integer(22));
         //object.put("email","shivam4819@gmail.com");
 
+        out.println("hiiiiiiiiiii");
        // System.out.println(object);
        // out.println(object);
     }
