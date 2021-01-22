@@ -14,26 +14,31 @@ import java.io.PrintWriter;
 public class JSONServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         System.out.println("connection made");
+        PrintWriter out=response.getWriter();
         StringBuffer buffer=new StringBuffer();
-       String line=null;
+        String line="";
         try {
             BufferedReader reader = request.getReader();
             while ((line = reader.readLine()) != null)
                 buffer.append(line);
 
-           // System.out.println(buffer.toString());
+            System.out.println(buffer.toString());
             // jason string
             Object obj= JSONValue.parse(buffer.toString());
             JSONObject jsonObject = (JSONObject)obj;
-            long id=(Long) jsonObject.get("id");
-            String email= (String)jsonObject.get("email");
-            String course= (String)jsonObject.get("coursename");
-            String instructor= (String)jsonObject.get("instructorname");
+            long id=(Long) jsonObject.get("k1");
+            String email= (String)jsonObject.get("k2");
+            String course= (String)jsonObject.get("k3");
+            String instructor= (String)jsonObject.get("k4");
 
             System.out.println("id"+id);
             System.out.println("email-"+email);
             System.out.println("couse-"+course);
             System.out.println("instructor-"+instructor);
+
+            JSONObject responseObj=new JSONObject();
+            responseObj.put("response","work is done");
+            out.println(responseObj);
         } catch (Exception e) {
             System.out.println("error="+e);
         }
