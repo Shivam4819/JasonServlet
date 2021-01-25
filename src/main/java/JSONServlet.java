@@ -1,3 +1,4 @@
+import com.google.gson.Gson;
 import org.json.simple.JSONObject;
 import org.json.simple.JSONValue;
 
@@ -23,22 +24,27 @@ public class JSONServlet extends HttpServlet {
                 buffer.append(line);
 
             System.out.println(buffer.toString());
-            // jason string
-            Object obj= JSONValue.parse(buffer.toString());
-            JSONObject jsonObject = (JSONObject)obj;
-            long id=(Long) jsonObject.get("k1");
-            String email= (String)jsonObject.get("k2");
-            String course= (String)jsonObject.get("k3");
-            String instructor= (String)jsonObject.get("k4");
+
+            // convert jason object to java object using gson library
+
+            Gson gson=new Gson();
+            JSONServletReq req= gson.fromJson(buffer.toString(),JSONServletReq.class);
+
+            long id=(Long) req.getId();
+            String email= req.getEmail();
+            String course= req.getCoursename();
+            String instructor= req.getInstructorname();
 
             System.out.println("id"+id);
             System.out.println("email-"+email);
             System.out.println("couse-"+course);
             System.out.println("instructor-"+instructor);
 
-            JSONObject responseObj=new JSONObject();
-            responseObj.put("response","work is done");
-            out.println(responseObj);
+            //covering java object to json and send response
+            JSONServletRes res=new JSONServletRes();
+            res.setResponseString("work completed");
+            out.println(gson.toJson(res));
+
         } catch (Exception e) {
             System.out.println("error="+e);
         }
@@ -46,13 +52,6 @@ public class JSONServlet extends HttpServlet {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        PrintWriter out=response.getWriter();
-        //object.put("name","shivam");
-        //object.put("age",new Integer(22));
-        //object.put("email","shivam4819@gmail.com");
 
-        out.println("hiiiiiiiiiii");
-       // System.out.println(object);
-       // out.println(object);
     }
 }
