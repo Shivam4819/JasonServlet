@@ -1,6 +1,8 @@
+package com.jsonservlet.api;
+
 import com.google.gson.Gson;
-import org.json.simple.JSONObject;
-import org.json.simple.JSONValue;
+import com.jsonservlet.request.FeedbackDataReq;
+import com.jsonservlet.response.FeedbackDataRes;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -11,8 +13,8 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-@WebServlet(name = "JSONServlet",urlPatterns = {"/display"})
-public class JSONServlet extends HttpServlet {
+@WebServlet(name = "com.jsonservlet.api.FeedbackDataApi",urlPatterns = {"/display"})
+public class FeedbackDataApi extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         System.out.println("connection made");
         PrintWriter out=response.getWriter();
@@ -28,7 +30,7 @@ public class JSONServlet extends HttpServlet {
             // convert jason object to java object using gson library
 
             Gson gson=new Gson();
-            JSONServletReq req= gson.fromJson(buffer.toString(),JSONServletReq.class);
+            FeedbackDataReq req= gson.fromJson(buffer.toString(), FeedbackDataReq.class);
 
             long id=(Long) req.getId();
             String email= req.getEmail();
@@ -41,7 +43,7 @@ public class JSONServlet extends HttpServlet {
             System.out.println("instructor-"+instructor);
 
             //covering java object to json and send response
-            JSONServletRes res=new JSONServletRes();
+            FeedbackDataRes res=new FeedbackDataRes();
             res.setResponseString("work completed");
             out.println(gson.toJson(res));
 
