@@ -13,7 +13,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-@WebServlet(name = "com.jsonservlet.api.FeedbackDataApi",urlPatterns = {"/display"})
+@WebServlet(name = "FeedbackDataApi",urlPatterns = {"/display"})
 public class FeedbackDataApi extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         System.out.println("connection made");

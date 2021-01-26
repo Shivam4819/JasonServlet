@@ -1,6 +1,8 @@
 package com.jsonservlet.api;
 
 import com.google.gson.Gson;
+import com.jsonservlet.dao.LoginDatabase;
+import com.jsonservlet.dto.LoginDto;
 import com.jsonservlet.request.LoginReq;
 import com.jsonservlet.response.LoginRes;
 
@@ -11,7 +13,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-@WebServlet(name = "com.jsonservlet.api.LoginApi", urlPatterns = {"/loginApi"})
+@WebServlet(name = "LoginApi", urlPatterns = {"/loginApi"})
 public class LoginApi extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -39,6 +41,14 @@ public class LoginApi extends HttpServlet {
 
             System.out.println("user-"+user);
             System.out.println("pass"+pass);
+
+            LoginDto dto = new LoginDto();
+            dto.setUsername(user);
+            dto.setPassword(pass);
+
+            LoginDatabase loginDatabase=new LoginDatabase();
+            loginDatabase.saveData(dto);
+
             if(user.equals("shivam") && pass.equals("admin")){
                 System.out.println("if .....");
                 LoginRes res=new LoginRes();
