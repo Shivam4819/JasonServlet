@@ -1,6 +1,6 @@
 package com.jsonservlet.request;
 
-public class FeedbackDataReq {
+public class FeedbackDataRequest {
     private long id;
     private String email;
     private String coursename;

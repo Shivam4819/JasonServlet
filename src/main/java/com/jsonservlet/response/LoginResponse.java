@@ -1,6 +1,6 @@
 package com.jsonservlet.response;
 
-public class LoginRes {
+public class LoginResponse {
     private String responseString;
 
     public String getResponseString() {

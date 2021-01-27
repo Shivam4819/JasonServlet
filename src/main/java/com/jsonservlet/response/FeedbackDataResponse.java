@@ -1,6 +1,6 @@
 package com.jsonservlet.response;
 
-public class FeedbackDataRes {
+public class FeedbackDataResponse {
 
     private String responseString;
 

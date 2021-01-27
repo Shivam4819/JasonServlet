@@ -1,10 +1,11 @@
 package com.jsonservlet.api;
 
 import com.google.gson.Gson;
-import com.jsonservlet.dao.LoginDatabase;
+import com.jsonservlet.component.LoginComponent;
+import com.jsonservlet.dao.LoginDao;
 import com.jsonservlet.dto.LoginDto;
-import com.jsonservlet.request.LoginReq;
-import com.jsonservlet.response.LoginRes;
+import com.jsonservlet.request.LoginRequest;
+import com.jsonservlet.response.LoginResponse;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
@@ -35,29 +36,16 @@ public class LoginApi extends HttpServlet {
 
             Gson gson=new Gson();
 
-            LoginReq loginReq = gson.fromJson(buffer.toString(), LoginReq.class);
-            String user=loginReq.getUsername();
-            String pass=loginReq.getPassword();
+            LoginRequest loginRequest = gson.fromJson(buffer.toString(), LoginRequest.class);
 
-            System.out.println("user-"+user);
-            System.out.println("pass"+pass);
+            LoginComponent loginComponent=new LoginComponent();
+            LoginResponse res= loginComponent.loginUser(loginRequest);
 
-            LoginDto dto = new LoginDto();
-            dto.setUsername(user);
-            dto.setPassword(pass);
+            out.println(gson.toJson(res));
 
-            LoginDatabase loginDatabase=new LoginDatabase();
-            loginDatabase.saveData(dto);
-
-            if(user.equals("shivam") && pass.equals("admin")){
-                System.out.println("if .....");
-                LoginRes res=new LoginRes();
-                res.setResponseString("credential matchd");
-                out.println(gson.toJson(res));
-            }
 
         }catch (Exception e){
-            System.out.println("problem--"+e);
+            System.out.println("problem at login api --"+e);
         }
     }
 }

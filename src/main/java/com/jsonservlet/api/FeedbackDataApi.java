@@ -1,8 +1,8 @@
 package com.jsonservlet.api;
 
 import com.google.gson.Gson;
-import com.jsonservlet.request.FeedbackDataReq;
-import com.jsonservlet.response.FeedbackDataRes;
+import com.jsonservlet.request.FeedbackDataRequest;
+import com.jsonservlet.response.FeedbackDataResponse;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -30,7 +30,7 @@ public class FeedbackDataApi extends HttpServlet {
             // convert jason object to java object using gson library
 
             Gson gson=new Gson();
-            FeedbackDataReq req= gson.fromJson(buffer.toString(), FeedbackDataReq.class);
+            FeedbackDataRequest req= gson.fromJson(buffer.toString(), FeedbackDataRequest.class);
 
             long id=(Long) req.getId();
             String email= req.getEmail();
@@ -43,7 +43,7 @@ public class FeedbackDataApi extends HttpServlet {
             System.out.println("instructor-"+instructor);
 
             //covering java object to json and send response
-            FeedbackDataRes res=new FeedbackDataRes();
+            FeedbackDataResponse res=new FeedbackDataResponse();
             res.setResponseString("work completed");
             out.println(gson.toJson(res));
 
