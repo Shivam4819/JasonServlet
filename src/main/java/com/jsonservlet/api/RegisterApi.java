@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.jsonservlet.component.RegisterComponent;
 import com.jsonservlet.request.RegisterRequest;
 import com.jsonservlet.response.RegisterResponse;
+import com.jsonservlet.utils.ReadPostBody;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
@@ -24,17 +25,14 @@ public class RegisterApi extends HttpServlet {
 
         PrintWriter out = response.getWriter();
         System.out.println("in registration");
-        StringBuffer buffer = new StringBuffer();
-        String line = "";
-        try {
-            BufferedReader reader = request.getReader();
-            while ((line = reader.readLine()) != null)
-                buffer.append(line);
 
-            System.out.println(buffer.toString());
+        try {
+            ReadPostBody readPostBody=new ReadPostBody();
+            String buffer= readPostBody.readBody(request,response);
+            System.out.println(buffer);
 
             Gson gson = new Gson();
-            RegisterRequest req= gson.fromJson(buffer.toString(), RegisterRequest.class);
+            RegisterRequest req= gson.fromJson(buffer, RegisterRequest.class);
 
             RegisterComponent component=new RegisterComponent();
             RegisterResponse res= component.sendToDao(req);
@@ -43,7 +41,7 @@ public class RegisterApi extends HttpServlet {
 
 
         } catch (Exception e) {
-            System.out.println("error--" + e);
+            System.out.println("error in registerApi--" + e);
         }
     }
 }

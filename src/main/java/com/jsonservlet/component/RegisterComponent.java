@@ -8,6 +8,7 @@ import com.jsonservlet.response.RegisterResponse;
 public class RegisterComponent {
     public RegisterResponse sendToDao(RegisterRequest req){
         try {
+
             RegisterDto dto = new RegisterDto();
             dto.setFullname(req.getFullname());
             dto.setUsername(req.getUsername());
@@ -15,13 +16,15 @@ public class RegisterComponent {
 
             RegisterDao db = new RegisterDao();
             int code = db.registration(dto);
+
             if (code == 200) {
+                System.out.println("code-"+code);
                 RegisterResponse res = new RegisterResponse();
                 res.setRegisterResponse("registration done");
                 return res;
             }
         }catch (Exception e){
-            System.out.println("error in commponent"+e);
+            System.out.println("error in register component--"+e);
         }
         return null;
     }

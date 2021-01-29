@@ -11,7 +11,7 @@ public class Database {
     public void makeConnection(){
         try{
             Class.forName("com.mysql.cj.jdbc.Driver");
-            con = (Connection) DriverManager.getConnection("jdbc:mysql://127.0.0.1/FeedbackApp","root","");
+            con = (Connection) DriverManager.getConnection("jdbc:mysql://127.0.0.1/FeedbackForm","root","");
             st= (Statement) con.createStatement();
         }catch(Exception e){
             System.out.print(e);

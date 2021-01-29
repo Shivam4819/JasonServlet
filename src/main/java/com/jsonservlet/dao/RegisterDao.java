@@ -15,7 +15,7 @@ public class RegisterDao {
                         "'"+registerDto.getUsername()+"','"+registerDto.getPassword()+"') ");
                 return 200;
             }catch (SQLException s){
-                System.out.println("syntax error"+s);
+                System.out.println("syntax error in register dao--"+s);
             }
 
         }catch (Exception e){
