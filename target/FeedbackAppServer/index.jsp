@@ -1,6 +1,8 @@
+
 <html>
 <body>
-<form action="display" method="get">
+<form action="DisplayDataApi" method="post">
+
     <h2>Hello World!</h2>
     <button type="submit">click</button>
 </form>
